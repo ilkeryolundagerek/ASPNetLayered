@@ -1,5 +1,4 @@
-﻿using Core.Concrete.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +7,8 @@ using Toolbox.DataTools;
 
 namespace Core.Abstracts.Repositories
 {
-    public interface IPersonRepository : IExtGenericRepository<Person>
+    public interface IExtGenericRepository<T>:IGenericRepository<T> where T : class
     {
-        IEnumerable<Person> PeopleWithDepartment();
+
     }
 }
