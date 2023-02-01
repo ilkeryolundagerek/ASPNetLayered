@@ -26,6 +26,7 @@
   <ItemGroup>
     <Reference Include="Toolbox">
       <HintPath>..\..\..\..\Desktop\Publish\Toolbox.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
 
