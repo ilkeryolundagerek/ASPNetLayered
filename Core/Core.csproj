@@ -8,8 +8,13 @@
 
   <ItemGroup>
     <Folder Include="Abstracts\Services\" />
-    <Folder Include="Abstracts\Repositories\" />
     <Folder Include="Concrete\DTOs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Toolbox">
+      <HintPath>..\..\..\..\Desktop\Publish\Toolbox.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
