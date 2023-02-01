@@ -11,7 +11,7 @@ using Toolbox.DataTools;
 
 namespace Data.Repositories
 {
-    public class PersonRepository : ExtgenericRepository<Person>, IPersonRepository
+    public class PersonRepository : GenericRepository<Person>, IPersonRepository
     {
         public PersonRepository(DbContext context) : base(context)
         {
@@ -24,7 +24,8 @@ namespace Data.Repositories
 
         public override IEnumerable<Person> ReadMany(Expression<Func<Person, bool>>? expression = null)
         {
-            return base.ReadMany(expression);
+            var data = _set.Include(a => a.Addresses).Include(d => d.Department);
+            return expression != null ? data.Where(expression) : data;
         }
     }
 }

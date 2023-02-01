@@ -22,14 +22,8 @@ namespace Data
             _context = context;
         }
 
-        public IPersonRepository PersonRepo
-        {
-            get
-            {
-                _personRepository = _personRepository == null ? new PersonRepository(_context) : _personRepository;
-                return _personRepository;
-            }
-        }
+        public IPersonRepository PersonRepo => _personRepository = _personRepository ?? new PersonRepository(_context);
+
 
         public IDepartmentRepository DepartmentRepo => _departmentRepository = _departmentRepository ?? new DepartmentRepository(_context);
 

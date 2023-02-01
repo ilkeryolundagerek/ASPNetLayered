@@ -8,7 +8,7 @@ using Toolbox.DataTools;
 
 namespace Core.Abstracts.Repositories
 {
-    public interface IPersonRepository : IExtGenericRepository<Person>
+    public interface IPersonRepository : IGenericRepository<Person>
     {
         IEnumerable<Person> PeopleWithDepartment();
     }
