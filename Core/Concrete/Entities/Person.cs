@@ -15,6 +15,9 @@ namespace Core.Concrete.Entities
         public string Lastname;
         public string? Suffix;
         public string Email;
+        public int DepartmentId;
+
+        public Department Department;
         public ICollection<Address> Addresses;//Db tarafına gönderilmeyen yapılardır. Çünkü nense yapısının sütunu oluşmaz.
 
         public Person()
@@ -22,15 +25,5 @@ namespace Core.Concrete.Entities
             //Koleksiyon (one-to-many) bağlantılarında yünklenememe durumlarını karşılamak için boş halleri eklenmelidir.
             Addresses = new HashSet<Address>();
         }
-    }
-
-    public class Address : BaseEntity
-    {
-        public string Name;
-        public int PersonId;
-        public Person Person;//Db tarafına gönderilmeyen yapılardır. Çünkü nense yapısının sütunu oluşmaz.
-        public string City;
-        public string Country;
-        public string Detail;
     }
 }
