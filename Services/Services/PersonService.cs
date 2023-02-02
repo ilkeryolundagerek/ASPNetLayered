@@ -76,18 +76,22 @@ namespace Services.Services
             _unitOfWork.Commit();
         }
 
-        public void ToggleActive(int personId)
+        public bool ToggleActive(int personId)
         {
             var entity = _unitOfWork.PersonRepo.ReadOneByKey(personId);
             entity.Active = !entity.Active;
             _unitOfWork.PersonRepo.UpdateOne(entity);
+            _unitOfWork.Commit();
+            return entity.Active;
         }
 
-        public void ToggleDeleted(int personId)
+        public bool ToggleDeleted(int personId)
         {
             var entity = _unitOfWork.PersonRepo.ReadOneByKey(personId);
             entity.Deleted = !entity.Deleted;
             _unitOfWork.PersonRepo.UpdateOne(entity);
+            _unitOfWork.Commit();
+            return entity.Deleted;
         }
     }
 }

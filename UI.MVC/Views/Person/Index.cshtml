@@ -33,39 +33,73 @@
             <th>
                 @Html.DisplayNameFor(model => model.Deleted)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Fullname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fullname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepartmentName)
+                </td>
+                <td>
+                    <button id="active-@item.Id" class="btn btn-@Html.Raw(item.Active?"success":"danger") text-light">Değiştir</button>
+                </td>
+                <td>
+                    <button id="deleted-@item.Id" class="btn btn-@Html.Raw(item.Deleted?"success":"danger") text-light">Değiştir</button>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $("button[id^='active-']").click(function (e) {
+                let id = e.target.id
+                let this_element = document.getElementById(id)
+                let aid = id.split('-')[1]
+                $.get("/person/toggleactive/"+aid,function(data,status){
+                    console.log(data)
+                    if(data){
+                        this_element.classList.add("btn-success")
+                        this_element.classList.remove("btn-danger")
+                    }else{
+                        this_element.classList.remove("btn-success")
+                        this_element.classList.add("btn-danger")
+                    }
+                })
+                console.log("Active:",id)
+            })
+            $("button[id^='deleted-']").click(function (e) {
+                let id = e.target.id
+                let this_element = document.getElementById(id)
+                let did = id.split('-')[1]
+                $.get("/person/toggledeleted/" + did, function (data, status) {
+                    console.log(data)
+                    if (data) {
+                        this_element.classList.add("btn-success")
+                        this_element.classList.remove("btn-danger")
+                    } else {
+                        this_element.classList.remove("btn-success")
+                        this_element.classList.add("btn-danger")
+                    }
+                })
+                console.log("Deleted:", id)
+            })
+        })
+    </script>
+}

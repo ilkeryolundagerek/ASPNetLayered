@@ -49,5 +49,15 @@ namespace UI.MVC.Controllers
             model.Departments = _dService.GetDepartmentsForList().Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Title, Selected = d.Id == model.NewPerson.DepartmentId });
             return View(model);
         }
+
+        public bool ToggleActive(int id)
+        {
+           return _service.ToggleActive(id);
+        }
+
+        public bool ToggleDeleted(int id)
+        {
+            return _service.ToggleDeleted(id);
+        }
     }
 }

@@ -14,8 +14,8 @@ namespace Core.Abstracts.Services
         IEnumerable<PersonListItemDTO> GetPeopleForListByCity();
         PersonDetailDTO GetPersonDetail(int id);
         void InsertPerson(NewPersonDTO newPerson);
-        void ToggleActive(int personId);
-        void ToggleDeleted(int personId);
+        bool ToggleActive(int personId);
+        bool ToggleDeleted(int personId);
         void SaveChanges();
     }
 }
