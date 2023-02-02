@@ -19,15 +19,17 @@ namespace Services
     {
         public static void AddBaseServices(this IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Server=.;Database=LayeredDB;User Id=sa;Password=1;MultipleActiveResultSets=true;"));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Server=localhost;Database=LayeredDB;User Id=sa;Password=1;MultipleActiveResultSets=true;"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //AutoMaper için özel mapprofile yapıları oluşturulur ve burada dahil edilir.
             var map_config = new MapperConfiguration(p =>
             {
                 p.AddProfile(new PersonProfiles());
+                p.AddProfile(new DepartmentProfiles());
             });
 
             IMapper mapper = map_config.CreateMapper();

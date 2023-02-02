@@ -11,15 +11,11 @@ using System.Threading.Tasks;
 
 namespace Services.Services
 {
-    public class PersonService : IPersonService
-    {
-        private IUnitOfWork _unitOfWork;
-        private IMapper _mapper;
 
-        public PersonService(IUnitOfWork unitOfWork,IMapper mapper)
+    public class PersonService : BaseService, IPersonService
+    {
+        public PersonService(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
         }
 
         public IEnumerable<PersonListItemDTO> GetPeopleForList()
@@ -50,25 +46,31 @@ namespace Services.Services
             throw new NotImplementedException();
         }
 
+        public PersonDetailDTO GetPersonDetail(int id)
+        {
+            Person entity = _unitOfWork.PersonRepo.ReadOneByKey(id);
+            return _mapper.Map<PersonDetailDTO>(entity);
+        }
+
         public void InsertPerson(NewPersonDTO newPerson)
         {
             Person entity = _mapper.Map<Person>(newPerson);
             entity.Active = true;
             entity.Deleted = false;
             entity.CreateTime = DateTime.Now;
-                /*new Person
-            {
-                Active = true,
-                Deleted = false,
-                CreateTime = DateTime.Now,
-                Prefix = newPerson.Prefix,
-                Firstname = newPerson.Firstname,
-                Middlename = newPerson.Middlename,
-                Lastname = newPerson.Lastname,
-                Suffix = newPerson.Suffix,
-                DepartmentId = newPerson.DepartmentId,
-                Email = newPerson.Email
-            };*/
+            /*new Person
+        {
+            Active = true,
+            Deleted = false,
+            CreateTime = DateTime.Now,
+            Prefix = newPerson.Prefix,
+            Firstname = newPerson.Firstname,
+            Middlename = newPerson.Middlename,
+            Lastname = newPerson.Lastname,
+            Suffix = newPerson.Suffix,
+            DepartmentId = newPerson.DepartmentId,
+            Email = newPerson.Email
+        };*/
             _unitOfWork.PersonRepo.CreateOne(entity);
         }
 

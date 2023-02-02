@@ -12,6 +12,7 @@ namespace Core.Abstracts.Services
         IEnumerable<PersonListItemDTO> GetPeopleForList();
         IEnumerable<PersonListItemDTO> GetPeopleForListByDepartment();
         IEnumerable<PersonListItemDTO> GetPeopleForListByCity();
+        PersonDetailDTO GetPersonDetail(int id);
         void InsertPerson(NewPersonDTO newPerson);
         void ToggleActive(int personId);
         void ToggleDeleted(int personId);
