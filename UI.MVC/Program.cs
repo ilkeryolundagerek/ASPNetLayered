@@ -1,4 +1,5 @@
 ﻿using Services;
+using UI.MVC.ViewHelpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 //IServiceCollection uzantısı eklendi.
 builder.Services.AddBaseServices();
+builder.Services.AddScoped<IPersonHelper, PersonHelper>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

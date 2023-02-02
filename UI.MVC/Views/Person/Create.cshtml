@@ -1,12 +1,12 @@
 ﻿@model CreatePersonViewModel
 @using Core.Abstracts.Services
 
-@*Dependency Injection View versiyonudur.*@
-@inject IDepartmentService departmentService
+@*Dependency Injection View versiyonudur. Çok gerekmedikçe kullanılmaz.*@
+@*@inject IDepartmentService departmentService*@
 
 @{
     ViewData["Title"] = "Create";
-    Model.Departments = departmentService.GetDepartmentsForList();
+    //Model.Departments = departmentService.GetDepartmentsForList();
 }
 
 <h1>Create</h1>

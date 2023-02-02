@@ -1,15 +1,18 @@
 ﻿using Core.Abstracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using UI.MVC.Models;
+using UI.MVC.ViewHelpers;
 
 namespace UI.MVC.Controllers
 {
     public class PersonController : Controller
     {
         private IPersonService _service;
-        public PersonController(IPersonService service)
+        private IPersonHelper _helper;
+        public PersonController(IPersonService service, IPersonHelper helper)
         {
             _service = service;
+            _helper = helper;
         }
         public IActionResult Index()
         {
@@ -23,7 +26,7 @@ namespace UI.MVC.Controllers
 
         public IActionResult Create()
         {
-            return View(new CreatePersonViewModel());
+            return View(_helper.GetCreatePersonView());
         }
     }
 }
