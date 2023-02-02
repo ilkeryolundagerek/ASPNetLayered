@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.Concrete.DTOs.Department;
 using Core.Concrete.DTOs.Person;
 using Core.Concrete.Entities;
 using System;
@@ -20,6 +21,18 @@ namespace Services.Maps
                 .ForMember(
                 t => t.DepartmentName,
                 s => s.MapFrom(src => src.Department.Title));
+
+            CreateMap<NewPersonDTO, Person>()
+               .ForMember(
+               t => t.Active,
+               s => s.MapFrom(src => true))
+               .ForMember(
+               t => t.Deleted,
+               s => s.MapFrom(src => false))
+               .ForMember(
+               t => t.CreateTime,
+               s => s.MapFrom(src => DateTime.Now));
         }
+
     }
 }

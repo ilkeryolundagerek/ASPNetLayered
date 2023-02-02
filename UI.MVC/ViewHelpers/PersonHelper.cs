@@ -1,12 +1,9 @@
 ﻿using Core.Abstracts.Services;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using UI.MVC.Models;
 
 namespace UI.MVC.ViewHelpers
 {
-    public interface IPersonHelper
-    {
-        CreatePersonViewModel GetCreatePersonView();
-    }
 
     public class PersonHelper : IPersonHelper
     {
@@ -23,7 +20,7 @@ namespace UI.MVC.ViewHelpers
         {
             return new CreatePersonViewModel()
             {
-                Departments = _departmentService.GetDepartmentsForList()
+                Departments = _departmentService.GetDepartmentsForList().Select(d => new SelectListItem { Value = d.Id.ToString(), Text = d.Title })
             };
         }
     }

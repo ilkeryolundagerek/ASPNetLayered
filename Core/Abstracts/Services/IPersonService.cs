@@ -16,5 +16,6 @@ namespace Core.Abstracts.Services
         void InsertPerson(NewPersonDTO newPerson);
         void ToggleActive(int personId);
         void ToggleDeleted(int personId);
+        void SaveChanges();
     }
 }

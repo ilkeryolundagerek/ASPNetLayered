@@ -55,9 +55,6 @@ namespace Services.Services
         public void InsertPerson(NewPersonDTO newPerson)
         {
             Person entity = _mapper.Map<Person>(newPerson);
-            entity.Active = true;
-            entity.Deleted = false;
-            entity.CreateTime = DateTime.Now;
             /*new Person
         {
             Active = true,
@@ -72,6 +69,11 @@ namespace Services.Services
             Email = newPerson.Email
         };*/
             _unitOfWork.PersonRepo.CreateOne(entity);
+        }
+
+        public void SaveChanges()
+        {
+            _unitOfWork.Commit();
         }
 
         public void ToggleActive(int personId)
