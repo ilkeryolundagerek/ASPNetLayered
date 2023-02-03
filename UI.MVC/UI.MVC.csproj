@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Views.Home.Index.en-GB.resx" />
+    <EmbeddedResource Remove="Resources\Views.Home.Index.en-US.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,7 +31,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\tr\Data\" />
+    <Folder Include="Areas\tr\Models\" />
     <Folder Include="wwwroot\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\Views.Home.Index.en-GB.resx">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\Views.Home.Index.en-US.resx" />
   </ItemGroup>
 
 </Project>
