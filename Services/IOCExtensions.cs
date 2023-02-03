@@ -44,5 +44,7 @@ namespace Services
         public static IApplicationBuilder AddExceptionCenter(this IApplicationBuilder app) => app.UseMiddleware<ExceptionCenter>();
 
         public static IApplicationBuilder AddRequestedInformationCheck(this IApplicationBuilder app) => app.UseMiddleware<RequestedInformationCheck>();
+
+        public static IApplicationBuilder AddSecurityHeaderOptions(this IApplicationBuilder app) => app.UseMiddleware<SecurityHeadersOptions>();
     }
 }

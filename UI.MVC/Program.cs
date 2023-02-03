@@ -1,16 +1,34 @@
-﻿using NuGet.Protocol.Plugins;
+﻿using Microsoft.AspNetCore.Mvc.Razor;
+using NuGet.Protocol.Plugins;
 using Services;
 using UI.MVC.ViewHelpers;
+
+var supportedLanguages = new[] { "tr-TR", "en-US", "en-GB" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedLanguages[0]).AddSupportedCultures(supportedLanguages).AddSupportedUICultures(supportedLanguages);
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services
+    .AddControllersWithViews()
+    .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
+builder.Services.AddLocalization(o => o.ResourcesPath = "Resources");
+
+builder.Services.Configure<RequestLocalizationOptions>(o =>
+{
+    o.SetDefaultCulture(supportedLanguages[0]).AddSupportedCultures(supportedLanguages).AddSupportedUICultures(supportedLanguages);
+});
+
 //IServiceCollection uzantısı eklendi.
 builder.Services.AddBaseServices();
 builder.Services.AddScoped<IPersonHelper, PersonHelper>();
 var app = builder.Build();
-app.AddExceptionCenter();
+
+app.UseRequestLocalization(localizationOptions);
+
+//app.AddExceptionCenter();
 //app.AddRequestedInformationCheck();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -19,7 +37,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     //Https adreslerini zorlar. http gelen tüm talepleri sunucu taraflı https olarak zorlar bu sayede client side ataackalrının kısmen önüne geçer.
     app.UseHsts();
-
+    app.AddSecurityHeaderOptions();
+    /*
     //Security Headers kullanarak güvenliği arttırmak:
     //X-Frame-Options: Uygulamamızın bir pencere içerisinde çağırılmasını yönetir.
     app.Use(async (context, next) =>
@@ -70,7 +89,7 @@ if (!app.Environment.IsDevelopment())
     {
         context.Response.Headers.Add("Feature-Policy", "camera 'none'; geolocation: 'none'; microphone: 'none'");
         await next();
-    });
+    });*/
 
 
 }
