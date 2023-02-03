@@ -41,9 +41,8 @@ namespace Services
 
 
         //Middlewares
-        public static IApplicationBuilder AddExceptionCenter(this IApplicationBuilder app)
-        {
-            return app.UseMiddleware<ExceptionCenter>();
-        }
+        public static IApplicationBuilder AddExceptionCenter(this IApplicationBuilder app) => app.UseMiddleware<ExceptionCenter>();
+
+        public static IApplicationBuilder AddRequestedInformationCheck(this IApplicationBuilder app) => app.UseMiddleware<RequestedInformationCheck>();
     }
 }
