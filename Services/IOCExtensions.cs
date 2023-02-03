@@ -3,9 +3,11 @@ using Core.Abstracts;
 using Core.Abstracts.Services;
 using Data;
 using Data.Contexts;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Maps;
+using Services.Middlewares;
 using Services.Services;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ namespace Services
 {
     public static class IOCExtensions
     {
+        //Services:
         public static void AddBaseServices(this IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Server=localhost;Database=LayeredDB;User Id=sa;Password=1;MultipleActiveResultSets=true;"));
@@ -34,6 +37,13 @@ namespace Services
 
             IMapper mapper = map_config.CreateMapper();
             services.AddSingleton(mapper);
+        }
+
+
+        //Middlewares
+        public static IApplicationBuilder AddExceptionCenter(this IApplicationBuilder app)
+        {
+            return app.UseMiddleware<ExceptionCenter>();
         }
     }
 }

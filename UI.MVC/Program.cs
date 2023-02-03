@@ -9,7 +9,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddBaseServices();
 builder.Services.AddScoped<IPersonHelper, PersonHelper>();
 var app = builder.Build();
-
+app.AddExceptionCenter();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
