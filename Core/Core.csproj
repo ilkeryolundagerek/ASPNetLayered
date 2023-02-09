@@ -7,9 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Toolbox">
-      <HintPath>..\..\..\..\Desktop\Publish\Toolbox.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\Desktop\PublishTool\Toolbox.dll</HintPath>
     </Reference>
   </ItemGroup>
 

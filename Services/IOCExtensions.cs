@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Core.Abstracts;
 using Core.Abstracts.Services;
+using Core.Concrete.Entities;
 using Data;
 using Data.Contexts;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Services.Maps;
@@ -22,7 +24,7 @@ namespace Services
         //Services:
         public static void AddBaseServices(this IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Server=localhost;Database=LayeredDB;User Id=sa;Password=1;MultipleActiveResultSets=true;"));
+            services.AddDbContext<DataContext>(options => options.UseSqlServer(@"Server=localhost;Database=PersonelData;Trusted_Connection=true;MultipleActiveResultSets=true;"));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
@@ -39,6 +41,16 @@ namespace Services
             services.AddSingleton(mapper);
         }
 
+        public static void AddCustomIdentity(this IServiceCollection services)
+        {
+            services.AddDbContext<UserContext>(o => o.UseSqlServer(@"Server=localhost;Database=LayeredIdentityDB;Trusted_Connection=true;MultipleActiveResultSets=true;"));
+            services
+                .AddIdentity<AppUser, AppRole>()
+                .AddEntityFrameworkStores<UserContext>()
+                .AddDefaultTokenProviders();
+            
+
+        }
 
         //Middlewares
         public static IApplicationBuilder AddExceptionCenter(this IApplicationBuilder app) => app.UseMiddleware<ExceptionCenter>();

@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +19,7 @@
 
   <ItemGroup>
     <Reference Include="Toolbox">
-      <HintPath>..\..\..\..\Desktop\Publish\Toolbox.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\..\..\Desktop\PublishTool\Toolbox.dll</HintPath>
     </Reference>
   </ItemGroup>
 
